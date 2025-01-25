@@ -1,12 +1,14 @@
 class Solution {
-    public int solution(double slice, double n) {
+    public int solution(int slice, int n) {
         int answer = 0;
-        double div = n/slice;
         
-        while(answer < div){
-            answer++;
+        if(n % slice == 0){
+            answer = n / slice;
         }
-            
+        else{
+            answer = n / slice + 1;
+        }
+        
         return answer;
     }
 }
