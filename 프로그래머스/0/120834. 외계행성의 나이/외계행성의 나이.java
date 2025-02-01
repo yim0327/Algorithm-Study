@@ -1,32 +1,19 @@
+import java.util.ArrayList;
+
 class Solution {
     public String solution(int age) {
         String answer = "";
+        ArrayList<Character> arr = new ArrayList<>();
         
-        int a = age / 1000;
-        int b = age / 100 - age / 1000 * 10;
-        int c = age / 10 - age / 100 * 10;
-        int d = age - age / 10 * 10;
-        
-        char p = (char)(a + 97);
-        char q = (char)(b + 97);
-        char r = (char)(c + 97);
-        char s = (char)(d + 97);
-        
-        if(age / 1000 != 0){         
-            answer = "" + p + q + r + s;
-        }
-        else if(age / 100 != 0){     
-            answer = "" + q + r + s;
-        }
-        else if(age / 10 != 0){
-            answer = "" + r + s;
-        }
-        else{
-            answer = "" + s;
+        while(age > 0){
+            arr.add((char)(age % 10 + 97));
+            age /= 10;
         }
         
+        for(int i = arr.size() -1; i >= 0; i--){
+            answer += arr.get(i);
+        }
+     
         return answer;
     }
 }
-
-// a = 141
