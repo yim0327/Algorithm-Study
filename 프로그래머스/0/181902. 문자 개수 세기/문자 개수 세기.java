@@ -3,13 +3,13 @@ class Solution {
         int[] answer = new int[52];
         
         for(int i = 0; i < my_string.length(); i++){
-            int ascii = (int)my_string.charAt(i);
+            char c = my_string.charAt(i);
             
-            if(ascii >= 65 && ascii <= 90){
-                answer[ascii-65]++;
+            if(c >= 'a'){
+                answer[c - 'a' + 26]++;
             }
-            if(ascii >= 97 && ascii <= 122){
-                answer[ascii-97+26]++;
+            else{
+                answer[c - 'A']++;
             }
         }
         
