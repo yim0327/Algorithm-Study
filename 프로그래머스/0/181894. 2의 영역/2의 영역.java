@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 
 class Solution {
@@ -35,5 +34,3 @@ class Solution {
         return answer;
     }
 }
-
-// 8, 9, 13
