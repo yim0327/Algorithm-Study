@@ -17,9 +17,10 @@ class Solution {
             answer[0] = -1;
         }
         else{
-            for(int j = idx1+1; j < arr.length; j++){
+            for(int j = arr.length-1; j > idx1; j--){
                 if(arr[j] == 2){
                     idx2 = j;
+                    break;
                 }
             }
             
