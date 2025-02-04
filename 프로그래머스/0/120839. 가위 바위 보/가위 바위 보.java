@@ -1,21 +1,19 @@
 class Solution {
     public String solution(String rsp) {
-        String answer = "";
+        StringBuilder answer = new StringBuilder();
         
         for(int i = 0; i < rsp.length(); i++){
-            switch(rsp.charAt(i)){
-                case '2':
-                    answer += "0";
-                    break;
-                case '0':
-                    answer += "5";
-                    break;
-                case '5':
-                    answer += "2";
-                    break;
+            if(rsp.charAt(i) == '0'){
+                answer.append(5);
+            }
+            if(rsp.charAt(i) == '2'){
+                answer.append(0);
+            }
+            if(rsp.charAt(i) == '5'){
+                answer.append(2);
             }
         }
         
-        return answer;
+        return answer.toString();
     }
 }
