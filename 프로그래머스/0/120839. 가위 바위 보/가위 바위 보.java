@@ -3,14 +3,16 @@ class Solution {
         String answer = "";
         
         for(int i = 0; i < rsp.length(); i++){
-            if(rsp.charAt(i) == '0'){
-                answer += "5";
-            }
-            if(rsp.charAt(i) == '2'){
-                answer += "0";
-            }
-            if(rsp.charAt(i) == '5'){
-                answer += "2";
+            switch(rsp.charAt(i)){
+                case '2':
+                    answer += "0";
+                    break;
+                case '0':
+                    answer += "5";
+                    break;
+                case '5':
+                    answer += "2";
+                    break;
             }
         }
         
