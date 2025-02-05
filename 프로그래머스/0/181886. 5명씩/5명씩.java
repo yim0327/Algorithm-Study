@@ -1,13 +1,11 @@
-import java.util.ArrayList;
-
 class Solution {
     public String[] solution(String[] names) {
-        ArrayList<String> arr = new ArrayList<>();
+        String[] answer = new String[names.length%5 == 0 ? names.length/5 : names.length/5+1];
         
         for(int i = 0; i < names.length; i+=5){
-            arr.add(names[i]);
+            answer[i/5] = names[i];
         }
         
-        return arr.toArray(new String[arr.size()]);
+        return answer;
     }
 }
