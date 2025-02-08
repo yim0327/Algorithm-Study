@@ -3,22 +3,13 @@ import java.util.ArrayList;
 class Solution {
     public int[] solution(int n) {
         ArrayList<Integer> arr = new ArrayList<>();
-        int div = 2;
         
-        while(n > 1){
-            if(n % div == 0){
-                n /= div;
-                arr.add(div);
-            }
-            else{
-                div++;
-            }
-        }
-        
-        for(int i = 1; i < arr.size(); i++){
-            if(arr.get(i-1) == arr.get(i)){
-                arr.remove(i);
-                i--;
+        for(int i = 2; i <= n; i++){
+            if(n % i == 0){
+                arr.add(i);
+                while(n % i == 0){
+                    n /= i;
+                }
             }
         }
         
