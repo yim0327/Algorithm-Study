@@ -11,10 +11,6 @@ class Solution {
             }
         }
         
-        if(list.isEmpty()){
-            list.add("EMPTY");
-        }
-        
-        return list.toArray(new String[list.size()]);
+        return list.isEmpty() ? new String[] { "EMPTY" } : list.toArray(new String[list.size()]);
     }
 }
