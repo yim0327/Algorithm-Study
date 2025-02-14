@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 class Solution {
     public int solution(String[] strArr) {
         int answer = 0;
@@ -8,9 +10,7 @@ class Solution {
         }
         
         for(int j = 0; j < cnt.length; j++){
-            if(answer < cnt[j]){
-                answer = cnt[j];
-            }
+            answer = Math.max(answer, cnt[j]);
         }
         
         return answer;
