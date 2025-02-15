@@ -1,32 +1,24 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class Solution {
     public int[] solution(int[] arr, int k) {
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for(int n : arr){
+            if(!list.contains(n)){
+                list.add(n);
+            }
+            if(list.size() == k){
+                break;
+            }
+        }
+        
         int[] answer = new int[k];
         Arrays.fill(answer, -1);
         
-        answer[0] = arr[0];
-        int idx = 1;
-        boolean check = false;
-        
-        for(int i = 1; i < arr.length; i++){
-            for(int j = 0; j < k; j++){
-                if(arr[i] == answer[j]){
-                    check = true;
-                    break;
-                }
-            }
-            
-            if(check == false){
-                answer[idx] = arr[i];
-                idx++;
-            }
-            
-            if(idx >= k){
-                break;
-            }
-            
-            check = false;
+        for(int i = 0; i < k && i < list.size(); i++){
+            answer[i] = list.get(i);
         }
         
         return answer;
