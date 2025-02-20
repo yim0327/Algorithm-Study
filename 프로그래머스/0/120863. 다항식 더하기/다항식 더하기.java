@@ -2,9 +2,8 @@ class Solution {
     public String solution(String polynomial) {
         int cnt_x = 0;
         int cnt_n = 0;
-        String[] pol = polynomial.split(" ");
         
-        for(String s : pol){
+        for(String s : polynomial.split(" ")){
             if(s.contains("x")){
                 s = s.replace("x", "");
                 cnt_x += s.equals("") ? 1 : Integer.parseInt(s);
