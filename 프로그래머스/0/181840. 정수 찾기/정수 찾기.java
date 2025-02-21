@@ -1,12 +1,7 @@
+import java.util.stream.IntStream;
+
 class Solution {
     public int solution(int[] num_list, int n) {
-        
-        for(int i : num_list){
-            if(i == n){
-                return 1;
-            }
-        }
-        
-        return 0;
+        return IntStream.of(num_list).anyMatch(i-> i==n) ? 1 : 0;
     }
 }
