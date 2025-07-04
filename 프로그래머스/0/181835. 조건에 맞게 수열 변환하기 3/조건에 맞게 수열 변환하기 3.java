@@ -1,9 +1,7 @@
 class Solution {
     public int[] solution(int[] arr, int k) {
-        int idx = 0;
-        for(int i : arr){
-            arr[idx] = (k % 2 == 0 ? i+k : i*k);
-            idx++;
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = (k % 2 == 0 ? arr[i]+k : arr[i]*k);
         }
         return arr;
     }
