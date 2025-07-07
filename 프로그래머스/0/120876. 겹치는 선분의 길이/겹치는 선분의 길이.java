@@ -1,6 +1,6 @@
 class Solution {
     public int solution(int[][] lines) {
-        // -100~100 -> 0~200 -> 199칸
+        // -100~100 -> 0~200 -> 200칸
         int answer = 0;
         int[] check = new int[200];
         
