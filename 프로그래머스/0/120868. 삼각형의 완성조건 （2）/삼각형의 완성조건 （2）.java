@@ -1,21 +1,23 @@
 class Solution {
     public int solution(int[] sides) {
-        int answer = 0;
-        int a = sides[0] > sides[1] ? sides[1] : sides[0]; // 작은변
-        int b = sides[0] > sides[1] ? sides[0] : sides[1]; // 큰변
+        /* 
+            짧은 변=a, 긴 변=b, 나머지 한 변=x
         
-        for(int i = 1; i <= b; i++) { // b가 가장 길 때
-            if(a + i > b){
-                answer++;
-            }
-        }
-        
-        for(int j = b+1; j <= a+b; j++){ // x가 가장 길 때
-            if(a + b > j){
-                answer++;
-            }
-        }
-        
-        return answer;
+            b가 가장 길 때 :
+                a + x > b,
+                b - a < x,
+                b-a+1 <= x
+
+            x가 가장 길 때 :
+                a + b > x,
+                a+b-1 >= x
+
+            그러므로 : b-a+1 <= x <= a+b-1 구간
+            
+            그때, x = (a+b-1) - (b-a+1) + 1
+            
+            식 정리 : x = 2a-1
+        */
+        return 2*Math.min(sides[0], sides[1])-1;
     }
 }
