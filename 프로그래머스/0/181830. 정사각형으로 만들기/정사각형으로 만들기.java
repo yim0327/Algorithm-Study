@@ -1,9 +1,6 @@
 class Solution {
     public int[][] solution(int[][] arr) {
-        int row = arr.length;
-        int column = arr[0].length;
-        int n = Math.max(row, column);
-        
+        int n = Math.max(arr.length, arr[0].length);
         int[][] answer = new int[n][n];
         
         for(int i = 0; i < arr.length; i++){
