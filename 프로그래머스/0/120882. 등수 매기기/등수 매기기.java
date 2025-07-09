@@ -1,24 +1,18 @@
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
     public int[] solution(int[][] score) {
-        int[] answer = new int[score.length];
-        float[] mean = new float[score.length];
+        ArrayList<Integer> arr = new ArrayList<>();
         
-        for(int i = 0; i < score.length; i++){
-            mean[i] = ((float)score[i][0] + (float)score[i][1])/2;
+        for(int[] tmp : score){
+            arr.add(tmp[0]+tmp[1]);
         }
         
-        float[] sorted = Arrays.copyOf(mean, mean.length);
-        Arrays.sort(sorted);
+        arr.sort(Collections.reverseOrder());
         
-        for(int j = 0; j < mean.length; j++){
-            for(int k = mean.length - 1; k >= 0; k--){       
-                if(mean[j] == sorted[k]){
-                    answer[j] = (int)(mean.length - k);
-                    break;
-                }
-            }
+        int[] answer = new int[score.length];
+        for(int i = 0; i < score.length; i++){
+            answer[i] = arr.indexOf(score[i][0]+score[i][1])+1;
         }
         
         return answer;
