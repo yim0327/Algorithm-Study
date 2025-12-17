@@ -1,61 +1,28 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int num = Integer.parseInt(sc.nextLine());
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int X = Integer.parseInt(br.readLine());
+        int cnt = 0, num = 0;
+        int row, col;
 
-        if(num == 1){
-            System.out.println("1/1");
+        while (X > num) {
+            cnt++;
+            num += cnt;
+        }
+
+        if(cnt % 2 == 0) {
+            row = X - num + cnt;
+            col = num - X + 1;
         }
         else {
-            int row=1, col=1;
-            int cnt=1, cnt2=1;
-
-            while(true) {
-                if(cnt == 1) {
-                    row++;
-                    col += 2;
-                }
-                else if(cnt % 2 != 0) {
-                    row++;
-                    col += cnt*2;
-                }
-                else {
-                    row += cnt*2;
-                    col++;
-                }
-
-                cnt++;
-
-                if(row >= num || col >= num) {
-                    break;
-                }
-            }
-
-            if(row > col) {
-                while(row != num && col != num) {
-                    row--;
-                    col++;
-
-                    cnt2++;
-                }
-            }
-            else {
-                while(col != num && row != num) {
-                    row++;
-                    col--;
-
-                    cnt2++;
-                }
-            }
-
-            if(num == row) {
-                System.out.println(cnt2+"/"+(cnt - cnt2 + 1));
-            }
-            else {
-                System.out.println((cnt - cnt2 + 1)+"/"+cnt2);
-            }
+            row = num - X + 1;
+            col = X - num + cnt;
         }
-    } // main
+
+        System.out.print(row + "/" + col);
+    }
 }
