@@ -1,13 +1,13 @@
 import java.util.Arrays;
 
 class Solution {
-    public int[] solution(int[] array, int[][] commands) {
+    public int[] solution(int[] array, int[][] commands) {  
         int[] answer = new int[commands.length];
         
-        for (int n = 0; n < commands.length; n++) {
-            int[] tmp = Arrays.copyOfRange(array, commands[n][0]-1, commands[n][1]);
+        for(int i = 0; i < commands.length; i++) {
+            int[] tmp = Arrays.copyOfRange(array, commands[i][0] - 1, commands[i][1]);
             Arrays.sort(tmp);
-            answer[n] = tmp[commands[n][2]-1];
+            answer[i] = tmp[commands[i][2] - 1];
         }
         
         return answer;
