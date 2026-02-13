@@ -4,13 +4,12 @@ class Solution {
     public String solution(int[] numbers) {
         String[] arr = Arrays.stream(numbers)
             .mapToObj(String::valueOf)
+            .sorted((a, b) -> (b+a).compareTo(a+b))
             .toArray(String[]::new);
         
-        Arrays.sort(arr, (a, b) -> ((b+a).compareTo(a+b)));
-        
-        if (arr[0].equals("0")) {
+        if (arr[0].charAt(0) == '0') {
             return "0";
-        }
+        } 
         
         return String.join("", arr);
     }
