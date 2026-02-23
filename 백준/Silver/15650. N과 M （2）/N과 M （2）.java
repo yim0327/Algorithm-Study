@@ -4,16 +4,16 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    private static void permutation(int[] arr, int start, int[] out, int depth, int n, int r) {
+    private static void combination(int[] arr, int start, int[] out, int depth, int r) {
         if (depth == r) {
             for (int x : out) System.out.print(x + " ");
             System.out.println();
             return;
         }
 
-        for (int i = start; i < n; i++) {
+        for (int i = start; i < arr.length; i++) {
             out[depth] = arr[i];
-            permutation(arr, i + 1, out, depth+1, n, r);
+            combination(arr, i + 1, out, depth+1, r);
         }
     }
 
@@ -29,7 +29,7 @@ public class Main {
             arr[i] = i+1;
         }
 
-        permutation(arr, 0, new int[r], 0, n, r);
+        combination(arr, 0, new int[r], 0, r);
 
     }
 }
