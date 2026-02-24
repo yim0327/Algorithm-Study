@@ -9,27 +9,25 @@ public class Main {
 
     private static void permutation(int[] arr, int[] out, boolean[] visited, int depth, int r) {
         if (depth == r) {
-            StringBuilder tmp = new StringBuilder();
-
             for (int i = 0; i < r; i++) {
-                tmp.append(out[i]).append(' ');
+                sb.append(out[i]).append(' ');
             }
-
-            if (sb.indexOf(tmp.toString()) == -1) {
-                sb.append(tmp).append('\n');
-            }
-
+            sb.append('\n');
             return;
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                out[depth] = arr[i];
+        int prev = Integer.MIN_VALUE;
 
-                permutation(arr, out, visited, depth + 1, r);
-                visited[i] = false;
-            }
+        for (int i = 0; i < arr.length; i++) {
+            if (visited[i]) continue;
+            if (arr[i] == prev) continue;
+            prev = arr[i];
+
+            visited[i] = true;
+            out[depth] = arr[i];
+
+            permutation(arr, out, visited, depth + 1, r);
+            visited[i] = false;
         }
     }
 
