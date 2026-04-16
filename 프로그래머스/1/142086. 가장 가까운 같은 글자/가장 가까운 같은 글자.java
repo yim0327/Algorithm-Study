@@ -1,20 +1,14 @@
-import java.util.Arrays;
+import java.util.HashMap;
 
 class Solution {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
-        String[] arr = s.split("");
-                
+        HashMap<Character, Integer> map = new HashMap<>();
+        
         for (int i = 0; i < s.length(); i++) {
-            String[] tmp = Arrays.copyOfRange(arr, 0, i);
-            String stmp = String.join("", tmp);
-            
-            if (i != 0 && stmp.contains(arr[i])) {
-                answer[i] = i - stmp.lastIndexOf(arr[i]);
-            }
-            else {
-                answer[i] = -1;
-            }
+            char c = s.charAt(i);
+            answer[i] = i - map.getOrDefault(c, i+1);
+            map.put(c, i);
         }
         
         return answer;
