@@ -1,19 +1,19 @@
-import java.util.*;
+import java.util.PriorityQueue;
 
 class Solution {
     public int[] solution(int k, int[] score) {
         int[] answer = new int[score.length];
-        int min = Integer.MAX_VALUE;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
         
-        for (int i = 0 ; i < score.length; i++) {
-            if (i < k) {
-                min = min > score[i] ? score[i] : min;
-                answer[i] = min;
+        for (int i = 0; i < score.length; i++) {
+            pq.add(score[i]);
+            
+            if (pq.size() <= k) {
+                answer[i] = pq.peek();
             }
             else {
-                int[] arr = Arrays.copyOfRange(score, 0, i+1);
-                Arrays.sort(arr);
-                answer[i] = arr[arr.length-k];
+                pq.remove();
+                answer[i] = pq.peek();
             }
         }
         
