@@ -8,4 +8,3 @@ WHERE II.ITEM_ID = any(SELECT IT.ITEM_ID # 3.-와 일치하는 장비만
                         ON IT.PARENT_ITEM_ID = II.ITEM_ID # 1.부모 중에서
                     WHERE II.RARITY = 'RARE') # 2.희귀도가 '레어'인 장비
 ORDER BY II.ITEM_ID DESC;
-
