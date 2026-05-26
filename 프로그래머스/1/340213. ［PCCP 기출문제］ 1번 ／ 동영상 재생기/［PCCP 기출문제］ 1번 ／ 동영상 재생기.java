@@ -1,84 +1,41 @@
-import java.util.Arrays;
-
 class Solution {
-    public int[] parseStringToIntArr(String s) {
-        return Arrays.stream(s.split(":"))
-                        .mapToInt(Integer::parseInt)
-                        .toArray();
-    }
-    
-    public void skipOpening(int[] time, int[] os, int[] oe) {
-        if (time[0] >= os[0] && time[0] <= oe[0]) {
-            if (!(time[0] == os[0] && time[1] < os[1])
-               && !(time[0] == oe[0] && time[1] > oe[1])) {
-                time[1] = oe[1];
-                time[0] = oe[0];
-            }
-        }
+    public int parseToSeconds(String time) {
+        String[] tmp = time.split(":");
+        return Integer.parseInt(tmp[0]) * 60 + Integer.parseInt(tmp[1]);
     }
     
     public String solution(String video_len, String pos, 
                            String op_start, String op_end, String[] commands) {
-        int[] time = parseStringToIntArr(pos);
-        int[] os = parseStringToIntArr(op_start);
-        int[] oe = parseStringToIntArr(op_end);
-        int[] len = parseStringToIntArr(video_len);
-        int[] cut = Arrays.copyOf(len, len.length);
+        int time = parseToSeconds(pos);
+        int os = parseToSeconds(op_start);
+        int oe = parseToSeconds(op_end);
+        int len = parseToSeconds(video_len);
         
-        // 남은 시간 10초 미만 기준 설정
-        if (len[1] < 10) {
-            if (len[0] == 0) {
-                cut[0] = 0;
-                cut[1] = 0;
-            }
-            else {
-                cut[0] -= 1;
-                cut[1] += 50;
-            }
-        }
-        else {
-            cut[1] -= 10;
-        }
-                
-        skipOpening(time, os, oe); // 오프닝 건너뛰기
-                
-        /** 동영상 시간 조정 **/
+        if (time >= os && time <= oe) time = oe;
+        
         for (String cmd : commands) {
-            if (cmd.equals("next")) { // 10초 후로 이동
-                // 남은 시간 10초 미만 시
-                if ((time[0] == cut[0] && time[1] > cut[1])
-                   || (time[0] == cut[0] - 1 && time[1] - 50 > cut[1])) {
-                    time[1] = len[1];
-                    time[0] = len[0];
-                }
-                else time[1] += 10;
-                
-                if (time[1] >= 60) {
-                    time[1] -= 60;
-                    time[0] += 1;
-                }
+            if (cmd.equals("prev")) {
+                if (time < 10) time = 0;
+                else time -= 10;
             }
             
-            if (cmd.equals("prev")) { // 10초 전으로 이동
-                // 현재 위치 10초 미만 시
-                if (time[0] == 0 && time[1] < 10) time[1] = 0;
-                else time[1] -= 10;
-                
-                if (time[0] != 0 && time[1] < 0) {
-                    time[0] -= 1;
-                    time[1] += 60;
-                }
+            if (cmd.equals("next")) {
+                if (time > len - 10) time = len;
+                else time += 10;
             }
             
-            skipOpening(time, os, oe); // 오프닝 건너뛰기
+            if (time >= os && time <= oe) time = oe;
         }
-                
-        StringBuilder sb = new StringBuilder(5);
         
-        if (String.valueOf(time[0]).length() == 1) sb.append("0");
-        sb.append(time[0] + ":");
-        if (String.valueOf(time[1]).length() == 1) sb.append("0");
-        sb.append(time[1]);
+        StringBuilder sb = new StringBuilder();
+        
+        String mm = String.valueOf(time/60);
+        if (mm.length() == 1) sb.append("0");
+        sb.append(mm + ":");
+        
+        String ss = String.valueOf(time%60);
+        if (ss.length() == 1) sb.append("0");
+        sb.append(ss);
         
         return sb.toString();
     }
