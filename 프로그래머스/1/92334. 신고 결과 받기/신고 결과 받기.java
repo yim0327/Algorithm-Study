@@ -2,39 +2,34 @@ import java.util.HashMap;
 
 class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
-        HashMap<String, Integer> map = new HashMap<>(id_list.length);
+        int len = id_list.length;
+        HashMap<String, Integer> idxMap = new HashMap<>(len);
         
-        // 유저 ID를 인덱스로 조회 가능 하도록
-        for (int i = 0; i < id_list.length; i++) {
-            map.put(id_list[i], i);
-        }
+        // 각 유저를 고정된 인덱스로 조회 가능 하도록
+        for (int i = 0; i < len; i++) idxMap.put(id_list[i], i);
         
-        int[] cnt = new int[id_list.length];
-        int[][] check = new int[id_list.length][id_list.length];
+        int[] reported_cnt = new int[len]; // 유저별 신고 당한 횟수
+        boolean[][] report_chk = new boolean[len][len]; // 신고-피신고 체크
         
         for (String r : report) {
-            String[] users = r.split(" ");
-            int x_idx = map.get(users[0]); // 신고자
-            int y_idx = map.get(users[1]); // 피신고자
+            String[] user = r.split(" ");
+            int a = idxMap.get(user[0]); // 신고자
+            int b = idxMap.get(user[1]); // 피신고자
             
-            // 동일인 중복 신고 체크
-            if (check[x_idx][y_idx] == 0) {
-                check[x_idx][y_idx] = 1;
-                cnt[y_idx]++;
-            }
+            if (report_chk[a][b]) continue; // 중복 방지
+            
+            reported_cnt[b]++;
+            report_chk[a][b] = true;
         }
         
-        int[] answer = new int[id_list.length];
+        int[] answer = new int[len];
         
-        for (int i = 0; i < cnt.length; i++) {
-            // i번 째 유저가 k번 이상 신고 당했을 시
-            if (cnt[i] >= k) {
-                for (int j = 0; j < id_list.length; j++) {
-                    // i를 신고한 모든 유저(j)들에게 메일 전송
-                    if (check[j][i] == 1) answer[j]++;
+        for (int i = 0; i < len; i++) {
+            if (reported_cnt[i] >= k) { // 피신고 횟수가 k 이상일 때
+                for (int j = 0; j < len; j++) {
+                    answer[j] += report_chk[j][i] ? 1 : 0;
                 }
             }
-            
         }
         
         return answer;
