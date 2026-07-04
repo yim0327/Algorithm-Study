@@ -1,14 +1,13 @@
-import java.util.HashMap;
-
 class Solution {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
-        HashMap<Character, Integer> map = new HashMap<>();
+        answer[0] = -1;
         
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            answer[i] = i - map.getOrDefault(c, i+1);
-            map.put(c, i);
+        for (int i = 1; i < s.length(); i++) {
+            String c = String.valueOf(s.charAt(i));
+            String sub = s.substring(0, i);
+            if (sub.lastIndexOf(c) == -1) answer[i] = -1;
+            else answer[i] = i - sub.lastIndexOf(c);
         }
         
         return answer;
