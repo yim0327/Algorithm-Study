@@ -1,17 +1,28 @@
+import java.util.Stack;
+
 class Solution {
     public int[] solution(int[] prices) {
         int[] answer = new int[prices.length];
-                
-        for (int i = 0; i < prices.length; i++) {
-            if (i == prices.length-1) {
+        Stack<Integer> stack = new Stack<>();
+        
+        // stack 초기화
+        for (int p : prices) stack.add(p);
+        
+        int pre_num = 0;
+        int second = 0;
+        
+        for (int i = prices.length-1; i >= 0; i--) {
+            if (pre_num == 0) {
+                pre_num = stack.pop();
                 answer[i] = 0;
-                break;
             }
             
-            for (int j = i+1; j < prices.length; j++) {
-                answer[i]++;
-                if (prices[i] > prices[j]) break;
-            }
+            second++;
+            answer[i] = second;
+            
+            int tmp = stack.pop();
+            
+            if (tmp > pre_num) second = 0;
         }
         
         return answer;
