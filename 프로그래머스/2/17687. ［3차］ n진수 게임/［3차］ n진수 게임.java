@@ -1,27 +1,24 @@
 class Solution {
     public String solution(int n, int t, int m, int p) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder entireString = new StringBuilder();
+        StringBuilder myString = new StringBuilder();
+
         int num = 0;
-        int turn = p;
         
-        while (sb.length() < t) {
-            String target = Integer.toString(num, n);
-            
-            if (target.length() < turn) {
-                turn -= target.length();
-            }
-            else {
-                while (turn <= target.length()) {
-                    sb.append(target.charAt(turn-1));
-                    if (sb.length() >= t) break;
-                    turn += m;
-                }
-                turn -= target.length();
-            }
-            
+        // 순회용 전체 문자열 세팅
+        while (entireString.length() < m * t) {
+            entireString.append(Integer.toString(num, n));
             num++;
         }
         
-        return sb.toString().toUpperCase();
+        int idx = p-1;
+        
+        // m씩 전진하면서 문자 선택
+        for (int i = 0; i < t; i++) {
+            myString.append(entireString.charAt(idx));
+            idx += m;
+        }
+        
+        return myString.toString().toUpperCase();
     }
 }
