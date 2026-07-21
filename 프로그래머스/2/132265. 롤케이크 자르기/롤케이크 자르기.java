@@ -7,10 +7,7 @@ class Solution {
         HashMap<Integer, Integer> map = new HashMap<>();
         HashSet<Integer> set = new HashSet<>();
         
-        for (int t : topping) {
-            if (map.containsKey(t)) map.put(t, map.get(t) + 1);
-            else map.put(t, 1);
-        }
+        for (int t : topping) map.put(t, map.getOrDefault(t, 0) + 1);
         
         for (int t : topping) {
             set.add(t);
