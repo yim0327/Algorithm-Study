@@ -7,23 +7,15 @@ class Solution {
         
         Map<Integer, Integer> map = new HashMap<>();
         
-        for (int i : tangerine) {
-            if (map.containsKey(i)) {
-                int cnt = map.get(i) + 1;
-                map.put(i, cnt);
-            }
-            else {
-                map.put(i, 1);
-            }
-        }
-                
+        for (int t : tangerine) map.put(t, map.getOrDefault(t, 0) + 1);
+        
         List<Integer> list = new ArrayList<>(map.values());
         list.sort(Collections.reverseOrder());
-
+        
         for (int i : list) {
             total += i;
             answer++;
-            if (k <= total) break;
+            if (total >= k) break;
         }
         
         return answer;
