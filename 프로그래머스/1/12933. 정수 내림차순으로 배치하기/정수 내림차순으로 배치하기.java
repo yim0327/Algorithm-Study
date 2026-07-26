@@ -1,9 +1,10 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 class Solution {
     public long solution(long n) {
-        String num = Long.toString(n);
-        String[] arr = num.split("");
+        String s = String.valueOf(n);
+        String[] arr = s.split("");
         
         Arrays.sort(arr, Collections.reverseOrder());
         
