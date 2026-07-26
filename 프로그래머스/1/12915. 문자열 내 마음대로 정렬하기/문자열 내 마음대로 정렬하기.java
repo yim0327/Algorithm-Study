@@ -2,18 +2,21 @@ import java.util.Arrays;
 
 class Solution {
     public String[] solution(String[] strings, int n) {
-        String[] answer = new String[strings.length];
         
         for (int i = 0; i < strings.length; i++) {
-            answer[i] = strings[i].toCharArray()[n] + strings[i];
+            StringBuilder sb = new StringBuilder();
+            sb.append(strings[i].charAt(n)).append(strings[i]);
+            strings[i] = sb.toString();
         }
         
-        Arrays.sort(answer);
+        Arrays.sort(strings);
         
-        for (int j = 0; j < strings.length; j++) {
-            answer[j] = answer[j].substring(1);
+        for (int i = 0; i < strings.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(strings[i]).delete(0, 1);
+            strings[i] = sb.toString();
         }
         
-        return answer;
+        return strings;
     }
 }
