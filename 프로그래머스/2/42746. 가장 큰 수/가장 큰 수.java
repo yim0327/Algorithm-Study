@@ -2,15 +2,21 @@ import java.util.*;
 
 class Solution {
     public String solution(int[] numbers) {
-        String[] arr = Arrays.stream(numbers)
-            .mapToObj(String::valueOf)
-            .sorted((a, b) -> (b+a).compareTo(a+b))
-            .toArray(String[]::new);
+        String[] arr = new String[numbers.length];
         
-        if (arr[0].charAt(0) == '0') {
-            return "0";
-        } 
+        for (int i = 0; i < numbers.length; i++) {
+             arr[i] = String.valueOf(numbers[i]);
+        }
         
+        Arrays.sort(arr, new Comparator<String>() {
+            @Override
+            public int compare(String a, String b) {
+                return (b+a).compareTo(a+b);
+            }
+        });
+        
+        if (arr[0].equals("0")) return "0";
+                
         return String.join("", arr);
     }
 }
