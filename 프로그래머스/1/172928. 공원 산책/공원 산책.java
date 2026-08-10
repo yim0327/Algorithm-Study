@@ -1,85 +1,58 @@
 class Solution {
     public int[] solution(String[] park, String[] routes) {
-        int[] answer = new int[2];
+        int[] answer = new int[2]; // 시작 r, c
 
+        // 시작 위치 초기화
         for (int i = 0; i < park.length; i++) {
-            if (park[i].contains("S")) {
+            int idx = park[i].indexOf('S');
+
+            if (idx != -1) {
                 answer[0] = i;
-                answer[1] = park[i].indexOf("S");
+                answer[1] = idx;
                 break;
             }
         }
 
-        for (String r : routes) {
-            String[] dir = r.split(" ");
-            int mv = Integer.parseInt(dir[1]);
+        int[] dr = {-1, 1, 0, 0};
+        int[] dc = {0, 0, -1, 1};
 
-            if (dir[0].equals("E")) {
-                if (answer[1] + mv < park[0].length()) {
-                    boolean flag = true;
+        for (String route : routes) {
+            String[] r = route.split(" ");
 
-                    for (int i = answer[1]; i <= answer[1] + mv; i++) {
-                        if (park[answer[0]].charAt(i) == 'X') {
-                            flag = false;
-                            break;
-                        }
-                    }
+            String dir = r[0];
+            int dist = Integer.parseInt(r[1]);
 
-                    if (flag) {
-                        answer[1] += mv;
-                    }
+            int k = 0;
+
+            if (dir.equals("N")) k = 0;
+            else if (dir.equals("S")) k = 1;
+            else if (dir.equals("W")) k = 2;
+            else if (dir.equals("E")) k = 3;
+
+            int nr = answer[0];
+            int nc = answer[1];
+            boolean flag = true;
+
+            for (int i = 0; i < dist; i++) {
+                nr += dr[k];
+                nc += dc[k];
+                
+                // 공원을 벗어나는지
+                if (nr < 0 || nr >= park.length ||
+                    nc < 0 || nc >= park[0].length()) {
+                    flag = false;
+                    break;
+                }
+                // 장애물을 만나는지
+                if (park[nr].charAt(nc) == 'X') {
+                    flag = false;
+                    break;
                 }
             }
 
-            else if (dir[0].equals("W")) {
-                if (answer[1] - mv >= 0) {
-                    boolean flag = true;
-
-                    for (int i = answer[1]; i >= answer[1] - mv; i--) {
-                        if (park[answer[0]].charAt(i) == 'X') {
-                            flag = false;
-                            break;
-                        }
-                    }
-
-                    if (flag) {
-                        answer[1] -= mv;
-                    }
-                }
-            }
-
-            else if (dir[0].equals("S")) {
-                if (answer[0] + mv < park.length) {
-                    boolean flag = true;
-
-                    for (int i = answer[0]; i <= answer[0] + mv; i++) {
-                        if (park[i].charAt(answer[1]) == 'X') {
-                            flag = false;
-                            break;
-                        }
-                    }
-
-                    if (flag) {
-                        answer[0] += mv;
-                    }
-                }
-            }
-
-            else if (dir[0].equals("N")) {
-                if (answer[0] - mv >= 0) {
-                    boolean flag = true;
-
-                    for (int i = answer[0]; i >= answer[0] - mv; i--) {
-                        if (park[i].charAt(answer[1]) == 'X') {
-                            flag = false;
-                            break;
-                        }
-                    }
-
-                    if (flag) {
-                        answer[0] -= mv;
-                    }
-                }
+            if (flag) {
+                answer[0] = nr;
+                answer[1] = nc;
             }
         }
 
