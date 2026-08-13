@@ -12,6 +12,7 @@ class Solution {
                 x = x < s[1] ? s[1] : x;
                 y = y < s[0] ? s[0] : y;
             }
+            
         }
         
         return x*y;
